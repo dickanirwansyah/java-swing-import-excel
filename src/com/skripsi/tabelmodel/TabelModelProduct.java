@@ -61,4 +61,5 @@ public class TabelModelProduct extends AbstractTableModel{
         this.list.add(product);
         fireTableDataChanged();
     }
+    
 }

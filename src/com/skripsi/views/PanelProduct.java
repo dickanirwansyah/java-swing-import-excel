@@ -158,24 +158,29 @@ public class PanelProduct extends javax.swing.JPanel {
     private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
         // export file to excel
         String filePath = "//home//dickajava//NetBeansProjects//c-45//data.xlsx";
-        File file = new File(filePath);
-        try {
-            FileWriter fw = new FileWriter(file);
-            BufferedWriter bw = new BufferedWriter(fw);
-            for (int i = 0; i < tabel_export.getRowCount(); i++) {//rows
+        if (tabel_export.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "maaf tidak ada data training");
+        } else {
+            File file = new File(filePath);
+            try {
+                FileWriter fw = new FileWriter(file);
+                BufferedWriter bw = new BufferedWriter(fw);
+                for (int i = 0; i < tabel_export.getRowCount(); i++) {//rows
 
-                for (int j = 0; j < tabel_export.getColumnCount(); j++) {//columnt
-                    bw.write(tabel_export.getValueAt(i, j).toString() + "\t");
+                    for (int j = 0; j < tabel_export.getColumnCount(); j++) {//columnt
+                        bw.write(tabel_export.getValueAt(i, j).toString() + "\t");
+                    }
+                    bw.newLine();
                 }
-                bw.newLine();
-            }
 
-            bw.close();
-            fw.close();
-            JOptionPane.showMessageDialog(null, "data berhasil di export ke excel");
-        } catch (IOException ex) {
-            Logger.getLogger(PanelProduct.class.getName()).log(Level.SEVERE, null, ex);
+                bw.close();
+                fw.close();
+                JOptionPane.showMessageDialog(null, "data berhasil di export ke excel");
+            } catch (IOException ex) {
+                Logger.getLogger(PanelProduct.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+
     }//GEN-LAST:event_btnExportActionPerformed
 
     private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
@@ -212,6 +217,8 @@ public class PanelProduct extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnImportActionPerformed
 
+    
+    
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // save
         if (importFile.getRowCount() == 0) {
@@ -224,20 +231,21 @@ public class PanelProduct extends javax.swing.JPanel {
                 String name = (String) tabel_import.getValueAt(i, 1);
                 String quantity = (String) tabel_import.getValueAt(i, 2);
 
-                if (idproduct != null) {
-                    JOptionPane.showMessageDialog(null, "maaf data " + product.getIdproduct()
-                            + " ada yang sama");
-                } else {
-                    product.setIdproduct(idproduct);
-                    product.setName(name);
-                    product.setQuantity(Integer.valueOf(quantity));
-                    productList.add(product);
-                    productDaoImpl.saveProduct(product);
-                    loadData();
-                }
+                product.setIdproduct(idproduct);
+                product.setName(name);
+                product.setQuantity(Integer.valueOf(quantity));
+                productList.add(product);
+                productDaoImpl.saveProduct(product);
+                loadData();
 
             }
+            //clear table import
             JOptionPane.showMessageDialog(null, "data berhasil disimpan !");
+            if(importFile.getRowCount() > 0){
+                for(int i = importFile.getRowCount() -1; i > -1; i--){
+                    importFile.removeRow(i);
+                }
+            }
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
