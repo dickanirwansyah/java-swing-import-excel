@@ -1,0 +1,3 @@
+p011 susu 100
+p012 mie 200
+p013 sabun 300
