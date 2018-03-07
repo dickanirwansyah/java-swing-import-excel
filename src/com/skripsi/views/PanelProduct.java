@@ -70,6 +70,14 @@ public class PanelProduct extends javax.swing.JPanel {
         jLabel1.setText("Data Product");
         jPanel1.add(jLabel1);
 
+        tabel_export.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
         jScrollPane1.setViewportView(tabel_export);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
