@@ -315,7 +315,7 @@ public class PanelWeather extends javax.swing.JPanel {
         //proses mencari total kasus
         int totalKasus = tabel_weather.getRowCount();
         txtTotalKasus.setText(String.valueOf(totalKasus));
-       
+      
         int totalOutlookYes = 0;
         int totalOutlookNo = 0;
         int totalHumidityHighValueYes = 0;
@@ -324,14 +324,19 @@ public class PanelWeather extends javax.swing.JPanel {
         int totalWindyTrueByYes = 0;
         int totalWindyFalseByYes = 0;
         int totalWindyFalseByNo = 0;
-        int Probabilitas_totalPlayYes = 0;
-        int Probabilitas_totalPlayNo = 0;
+        double Probabilitas_totalPlayYes = 0;
+        double Probabilitas_totalPlayNo = 0;
+        double himpunanKasus = 0;
+        
         
         //entropy informasi 
         double data_entropy = 0.0;
         //gain informasi
         double data_gain = 0.0;     
         
+        //count himpunan kasus 
+        himpunanKasus = weatherDaoImpl.countHimpunanKasus();
+        System.out.println("himpunan kasus --> "+himpunanKasus);
         
         //count total kasus play dengan yes
         Probabilitas_totalPlayYes = weatherDaoImpl.countTotalKasusYes();
@@ -340,9 +345,12 @@ public class PanelWeather extends javax.swing.JPanel {
         //count total kasus play dengan no
         Probabilitas_totalPlayNo = weatherDaoImpl.countTotalKasusNo();
         System.out.println("total kasus play dengan nilai no---> "+Probabilitas_totalPlayNo);
+    
+        double divPlayYes = Probabilitas_totalPlayYes / himpunanKasus;
+        System.out.println("pembagian probabilitas / himpunan kasus "+divPlayYes);
         
-        //entropy total
-        data_entropy = rtLog(Probabilitas_totalPlayYes);
+        //rumus entropy total
+        data_entropy = rtLog(divPlayYes);
         System.out.println("test entropy --> "+data_entropy);
         
         //count total kasus outlook sunny dengan nilai yes

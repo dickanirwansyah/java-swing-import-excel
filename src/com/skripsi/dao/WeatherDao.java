@@ -18,6 +18,9 @@ public interface WeatherDao {
     
     Weather createWeather(Weather weather);
     
+    //count himpunan kasus
+    int countHimpunanKasus();
+    
     //count total kasus yes
     int countTotalKasusYes();
     

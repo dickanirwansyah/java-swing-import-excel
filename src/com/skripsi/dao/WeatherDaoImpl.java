@@ -94,7 +94,44 @@ public class WeatherDaoImpl implements WeatherDao{
         }
         return weather;
     }
+    
+    //himpunan kasus
 
+    @Override
+    public int countHimpunanKasus() {
+        PreparedStatement statement = null;
+        String sql = "select count(*) as counter from weather";
+        ResultSet rs=null;
+        int counted = 0;
+        try {
+            statement=connection.prepareStatement(sql);
+            rs=statement.executeQuery();
+            while(rs.next()){
+                counted = rs.getInt("counter");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(WeatherDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            if(statement!=null){
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(WeatherDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if(rs!=null){
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(WeatherDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            return counted;
+        }
+    }
+
+   
+    
     //total kasus outlook dengan nilai sunny dengan nilai yes
     @Override
     public int countOutlookByYes() {
