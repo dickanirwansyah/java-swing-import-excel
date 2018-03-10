@@ -306,26 +306,76 @@ public class PanelWeather extends javax.swing.JPanel {
        }
     }//GEN-LAST:event_btn_simpanActionPerformed
 
+    static double rtLog(double x){
+        return Math.log(x)/Math.log(2.0);
+    }
+    
     private void btn_hitung_entropy_gainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hitung_entropy_gainActionPerformed
          
         //proses mencari total kasus
         int totalKasus = tabel_weather.getRowCount();
         txtTotalKasus.setText(String.valueOf(totalKasus));
-        int totalOutlook = 0;
-        int totalPlayYes = 0;
-        int totalPlayNo = 0;
+       
+        int totalOutlookYes = 0;
+        int totalOutlookNo = 0;
+        int totalHumidityHighValueYes = 0;
+        int totalHumidityHighValueNo = 0;
+        int totalWindyTrueByNo = 0;
+        int totalWindyTrueByYes = 0;
+        int totalWindyFalseByYes = 0;
+        int totalWindyFalseByNo = 0;
+        int Probabilitas_totalPlayYes = 0;
+        int Probabilitas_totalPlayNo = 0;
         
-        //count total kasus outlook dengan nilai yes
-        totalOutlook = weatherDaoImpl.countOutlookByYes();
-        System.out.println("total outlook dengan yes --> "+ totalOutlook);
+        //entropy informasi 
+        double data_entropy = 0.0;
+        //gain informasi
+        double data_gain = 0.0;     
+        
         
         //count total kasus play dengan yes
-        totalPlayYes = weatherDaoImpl.countTotalKasusYes();
-        System.out.println("total kasus play dengan nilai yes--> "+totalPlayYes);
+        Probabilitas_totalPlayYes = weatherDaoImpl.countTotalKasusYes();
+        System.out.println("total kasus play dengan nilai yes--> "+Probabilitas_totalPlayYes);
         
         //count total kasus play dengan no
-        totalPlayNo = weatherDaoImpl.countTotalKasusNo();
-        System.out.println("total kasus play dengan nilai no---> "+totalPlayNo);
+        Probabilitas_totalPlayNo = weatherDaoImpl.countTotalKasusNo();
+        System.out.println("total kasus play dengan nilai no---> "+Probabilitas_totalPlayNo);
+        
+        //entropy total
+        data_entropy = rtLog(Probabilitas_totalPlayYes);
+        System.out.println("test entropy --> "+data_entropy);
+        
+        //count total kasus outlook sunny dengan nilai yes
+        totalOutlookYes = weatherDaoImpl.countOutlookByYes();
+        System.out.println("total outlook dengan yes --> "+ totalOutlookYes);
+        
+        //count total kasus outlook sunny dengan nilai no
+        totalOutlookNo = weatherDaoImpl.countOutlookByNo();
+        System.out.println("total outlook dengan No --->"+ totalOutlookNo);
+        
+        //count total kasus humidity hight dengan nilai yes
+        totalHumidityHighValueYes = weatherDaoImpl.countHumidityByYes();
+        System.out.println("total humidity dengan instance hight value yes --> "+totalHumidityHighValueYes);
+        
+        //count total kasus humidity high dengan nilai no
+        totalHumidityHighValueNo = weatherDaoImpl.countHumidityByNo();
+        System.out.println("total humidity dengan instance high value no --> "+totalHumidityHighValueNo);
+        
+        //count total kasus windy dengan instance false dengn nilai yes
+        totalWindyFalseByYes = weatherDaoImpl.countWindyFalseByYes();
+        System.out.println("total windy dengan instance false value yes --> "+totalWindyFalseByYes);    
+        
+        //count total kasus windy dengan instance false dengan nilai no
+        totalWindyFalseByNo = weatherDaoImpl.countWindyFalseByNo();
+        System.out.println("total windy dengan instance false value no --> "+totalWindyFalseByNo);
+        
+        //count total kasus windy dengan instance true dengan nilai yes
+        totalWindyTrueByYes = weatherDaoImpl.countWindyTrueByYes();
+        System.out.println("total windy dengan instance true value yes --> "+totalWindyTrueByYes);
+        
+        //count total kasus windy dengan instance true dengan nilai no
+        totalWindyTrueByNo = weatherDaoImpl.countWindyFalseByNo();
+        System.out.println("total windy dengan instance true value no --> "+totalWindyTrueByNo);
         
     }//GEN-LAST:event_btn_hitung_entropy_gainActionPerformed
 

@@ -24,17 +24,45 @@ public interface WeatherDao {
     //count total kasus no
     int countTotalKasusNo();
     
-    //count total kasus outlook dengan value yes
+    //count total kasus outlook sunny  dengan value yes
     int countOutlookByYes();
     
-    //count total kasus outlook dengan value no
+    //count total kasus outlook sunny dengan value no
     int countOutlookByNo();
     
-    //count total kasus humidity dengan value yes
+    //count total kasus outlook rainy dengan value yes
+    int countOutlookRainyByYes();
+    
+    //count total kasus outlook rainy dengan value no
+    int countOutlookRainyByNo();
+    
+    //count total kasus outlook overcast dengan value yes
+    int countOutlookOvercastByNo();
+    
+    //count total kasus outlook overcast dengan value no
+    int countOutlookOvercastByYes();
+    
+    //count total kasus humidity high dengan value yes
     int countHumidityByYes();
     
-    //count total kasus humidity dengan value no
+    //count total kasus humidity high dengan value no
     int countHumidityByNo();
     
+    //count total kasus humidity normal dengan value yes
+    int countHumidityNormalByYes();
     
+    //count total kasus humidity normal dengan value no
+    int countHumidityNormalByNo();
+    
+    //count total kasus windy dengan FALSE value yes
+    int countWindyFalseByYes();
+    
+    //count total kasus windy dengan FALSE value No
+    int countWindyFalseByNo();
+    
+    //count total kasus windy dengan TRUE value yes
+    int countWindyTrueByYes();
+    
+    //count total kasus dengan windy dengan TRUE value no
+    int countWindyTrueByNo();
 }
